@@ -1,0 +1,62 @@
+# =============================================================================
+# zUMIs config for SMART-seq3 HEK293T (HEK.fwdprimer, 10% downsample)
+# Used with: 2-smartseq-mapping.sh
+#
+# Final out_dir used for paper figures:
+#   .../smartseq3/zumi_fwdprimer_sub10
+#   (downstream copies/work under zumi_fwdprimer_sub10_fig)
+#
+# NOTE: absolute HPC paths — edit for your environment.
+# =============================================================================
+project: Smartseq3_fwdprimer_sub10
+sequence_files:
+  file1:
+    name: /path/to/floraseq/benchmark/smartseq3/fq/hek_fwd/sub_Smartseq3.HEK.fwdprimer.read1.fastq.gz
+    base_definition:
+      - cDNA(23-75)
+      - UMI(12-19)
+    find_pattern: ATTGCGCAATG
+  file2:
+    name: /path/to/floraseq/benchmark/smartseq3/fq/hek_fwd/sub_Smartseq3.HEK.fwdprimer.index1.fastq.gz
+    base_definition:
+      - BC(1-8)         # i7 index
+  file3:
+    name: /path/to/floraseq/benchmark/smartseq3/fq/hek_fwd/sub_Smartseq3.HEK.fwdprimer.index2.fastq.gz
+    base_definition:
+      - BC(1-8)         # i5 index
+reference:
+  STAR_index: /path/to/reference/star_index_2.7.4
+  GTF_file: /path/to/reference/cellranger/refdata-gex-GRCh38-2020-A/genes/genes.gtf
+  additional_STAR_params: '--clip3pAdapterSeq CTGTCTCTTATACACATCT'
+out_dir: /path/to/floraseq/benchmark/smartseq3/zumi_fwdprimer_sub10
+num_threads: 16
+mem_limit: 100
+filter_cutoffs:
+  BC_filter:
+    num_bases: 3
+    phred: 20
+  UMI_filter:
+    num_bases: 2
+    phred: 20
+barcodes:
+  barcode_num: ~
+  barcode_file: /path/to/floraseq/benchmark/smartseq3/fq/processed.2/Smartseq3.HEK.fwdprimer.barcode.txt
+  automatic: no
+  BarcodeBinning: 1
+  nReadsperCell: 100
+  demultiplex: no
+counting_opts:
+  introns: yes
+  downsampling: '0'
+  strand: 0
+  Ham_Dist: 1
+  write_ham: no
+  velocyto: no
+  primaryHit: yes
+  twoPass: no
+make_stats: yes
+which_Stage: Filtering
+samtools_exec: /path/to/software/miniforge3/envs/sc-bio/bin/samtools
+pigz_exec: /usr/bin/pigz
+STAR_exec: /path/to/software/miniforge3/envs/sc-py/bin/STAR
+Rscript_exec: /path/to/software/miniforge3/envs/sc-bio/bin/Rscript
