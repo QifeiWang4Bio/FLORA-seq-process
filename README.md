@@ -7,11 +7,16 @@ approximate analysis order within each dataset.
 ## Repository structure
 
 ```text
+0-process-fq-data/        Raw FASTQ preprocessing
 1-cell-line/              Cell-line mixing and cross-platform benchmarks
 2-CAF/                    Breast cancer fibroblast analysis
 3-mHypo/                  Mouse hypothalamus analysis
 config.example.sh          Example path configuration
 ```
+
+Raw sequencing data should first be processed with `0-process-fq-data/` ; 
+the numbered dataset directories (`1-cell-line/`, `2-CAF/`, `3-mHypo/`) 
+then run downstream analyses on those outputs. See `0-process-fq-data/README.md` for details.
 
 ## Path configuration
 
